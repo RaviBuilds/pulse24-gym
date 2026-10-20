@@ -58,7 +58,7 @@ export const services: Service[] = [
   {
     id: "kickboxing",
     name: "Kickboxing",
-    description: "Kickboxing training for conditioning and technique.",
+    description: "Kickboxing training.",
     icon: "equipment",
     image: `${ASSET}-kickboxing.jpg`,
     verified: true,
@@ -98,7 +98,7 @@ export const services: Service[] = [
   {
     id: "yoga",
     name: "Yoga",
-    description: "Yoga practice, reported in public directory listings.",
+    description: "Yoga practice.",
     icon: "floor",
     image: `${ASSET}-yoga.jpg`,
     verified: true,
@@ -108,7 +108,7 @@ export const services: Service[] = [
   {
     id: "vinyasa-yoga",
     name: "Vinyasa Yoga",
-    description: "Vinyasa-style yoga, reported in public directory listings.",
+    description: "Vinyasa yoga practice.",
     icon: "floor",
     image: `${ASSET}-vinyasa-yoga.jpg`,
     verified: true,
@@ -118,7 +118,7 @@ export const services: Service[] = [
   {
     id: "adult-sports",
     name: "Adult Sports",
-    description: "Adult sports listed in the gym's service roster.",
+    description: "Adult sports activities.",
     icon: "equipment",
     image: `${ASSET}-adult-sports.jpg`,
     verified: true,
@@ -128,7 +128,7 @@ export const services: Service[] = [
   {
     id: "diet-counseling",
     name: "Diet Counseling",
-    description: "Personalized diet counseling alongside training.",
+    description: "Personalized diet counseling.",
     icon: "coaching",
     image: `${ASSET}-diet-counseling.jpg`,
     verified: true,

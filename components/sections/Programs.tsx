@@ -194,7 +194,22 @@ export function Programs({ whatsappHref }: { whatsappHref: string }) {
               <h3 id={`programs-group-${group.id}`} className="factory-programs-kicker">
                 {group.label}
               </h3>
-              <ul className="factory-programs-classes">
+              <ul
+                className="factory-programs-classes"
+                style={
+                  {
+                    // Longest full name / longest single word, in characters.
+                    // The stylesheet sizes every class name from these so the
+                    // longest one always fits its row (no mid-word breaks, no
+                    // wrapped names pulling the rule and description off the
+                    // baseline).
+                    "--pg-chars": Math.max(...group.items.map((item) => item.name.length)),
+                    "--pg-word": Math.max(
+                      ...group.items.flatMap((item) => item.name.split(/\s+/).map((w) => w.length))
+                    ),
+                  } as CSSProperties
+                }
+              >
                 {group.items.map((item, i) => (
                   <li
                     key={item.id}

@@ -2676,7 +2676,21 @@ html {
   /* Second alignment axis: every other class steps to it, so the list reads
      as two deliberate columns of type, not a progressive indent. */
   --pg-axis: 2.25rem;
+  --pg-axis-len: 2.25rem;
   --pg-cn: clamp(2.75rem, 14vw, 4.75rem);
+  /* Width taken by everything that shares a row with the name (rule floor +
+     description column). Mobile stacks the description, so it is only the
+     rule floor. */
+  --pg-reserve: 1.5rem;
+  /* ONE size for every name in the group: the design size, capped so the
+     longest word (mobile, where names may wrap between words) or the longest
+     full name (md+, where names stay on one line) still fits the container.
+     cqw resolves against this list, which is the size container. */
+  --pg-fs: min(
+    var(--pg-cn),
+    calc((100cqw - var(--pg-axis-len) - var(--pg-reserve)) / (var(--pg-word, 8) * 0.66))
+  );
+  container-type: inline-size;
   margin-top: 1.75rem;
 }
 
@@ -2698,13 +2712,13 @@ html {
 .factory-programs-class-name {
   grid-column: 1;
   grid-row: 1;
-  font-size: var(--pg-cn);
+  font-size: var(--pg-fs);
   font-weight: 600;
   line-height: 0.86;
   letter-spacing: -0.05em;
   text-transform: uppercase;
   color: var(--text-primary);
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
 }
 
 .factory-programs-class-rule {
@@ -2713,7 +2727,7 @@ html {
   height: 1px;
   margin-left: 0.875rem;
   /* Sit on the cap baseline of the name, not the line-box bottom. */
-  margin-bottom: calc(var(--pg-cn) * 0.075);
+  margin-bottom: calc(var(--pg-fs) * 0.075);
   background: color-mix(in srgb, var(--text-primary) 16%, transparent);
   transform: scaleX(0);
   transform-origin: left center;
@@ -2734,11 +2748,19 @@ html {
 }
 
 /* md+: the description moves up onto the rule, at the right edge of the
-   composition, standing on the same baseline as its class name. */
+   composition, standing on the same baseline as its class name. Names stay on
+   one line here; the shared size above shrinks to fit the longest one. */
 @media (min-width: 768px) {
   .factory-programs-classes {
     --pg-axis: 11%;
+    --pg-axis-len: 11cqw;
     --pg-cn: 9vw;
+    /* rule floor 2.5rem + rule margin 0.875rem + description 15rem */
+    --pg-reserve: 18.5rem;
+    --pg-fs: min(
+      var(--pg-cn),
+      calc((100cqw - var(--pg-axis-len) - var(--pg-reserve)) / (var(--pg-chars, 8) * 0.66))
+    );
     margin-top: 2.25rem;
   }
 
@@ -2747,19 +2769,26 @@ html {
     padding-block: 0.375rem;
   }
 
+  .factory-programs-class-name {
+    white-space: nowrap;
+  }
+
   .factory-programs-class-desc {
     grid-column: 3;
     grid-row: 1;
     max-width: none;
     padding-left: 1.25rem;
-    padding-bottom: calc(var(--pg-cn) * 0.075 + 0.875rem);
+    padding-bottom: calc(var(--pg-fs) * 0.075 + 0.875rem);
   }
 }
 
 @media (min-width: 1024px) {
   .factory-programs-classes {
     --pg-axis: 16%;
+    --pg-axis-len: 16cqw;
     --pg-cn: clamp(5rem, 8.2vw, 8rem);
+    /* rule floor 3rem + rule margin up to 2rem + description 17.5rem */
+    --pg-reserve: 22.5rem;
     margin-top: 2.75rem;
   }
 
